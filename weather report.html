@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather app</title>
+</head>
+<style>
+*{
+   
+    /* background-color: aqua; */
+    top: 50px;
+/* background-image: url(/mediaaa/weather.jpg); */
+    
+}
+
+#main
+{
+    position: absolute;
+    /* border: red solid 5px; */
+    left:500px;
+    width: 420px;
+    height: 500px;
+    border-radius: 20px;
+    background-image: linear-gradient(to bottom  left,rgb(1, 24, 24),rgb(116, 180, 217),rgb(9, 30, 50));
+}
+#h2
+{
+    position: relative;
+    top: 30px;
+    font-size: 20px;
+    left: 60px;
+    /* border: solid red 2px; */
+    border-radius: 20px;
+    text-align: center;
+}
+#h3
+{
+    position: relative;
+    top: 30px;
+    left: 60px;
+    /* border: solid red 2px; */
+    border-radius: 20px;
+}
+#h4
+{
+    position: relative;
+    top: 40px;
+    left: 120px;
+    /* border: solid red 2px; */
+}
+#h5
+{
+    position: relative;
+    top: 24px;
+    left: 250px;
+    font-size: 30px;
+    width: 50px;
+    color: white;
+    /* border: solid red 2px; */
+
+}
+#h6
+{
+    
+    position: relative;
+    top: -40px;
+    left: 70px;
+    width: 150px;
+    font-size: 30px;
+    color: white;
+    /* border: solid red 2px; */
+
+}
+#h8
+{
+    position: relative;
+   left: 70px;
+   top: -20px;
+   font-size: 20px;
+   color: silver;
+}
+#h9
+{
+    position: relative;
+   left: 250px;
+   top: -210px;
+   font-size: 20px;
+   color: silver;
+}
+
+</style>
+
+//
+<body>
+    <!-- <img id="apple" src="/mediaaa/weather.jpg" alt=""> -->
+    <div id="main" class="card">
+        <div class="search">
+            <input id="h2" type="text" placeholder="Enter City" spellcheck="false">
+            <button style="width: 30px;height: 30px;" id="h3"   ><img width="15px" src="/mediaaa/search.png" alt=""></button>
+        </div>
+
+        <div class="weather">
+        <img id="h4" style="width: 150px;" src="/mediaaa/rain.png" class="weather-icon" alt="">
+       <h1 id="h5" class="temp">22°c</h1>
+       <h2 id="h6" class="city">new york</h2>
+       <div id="h8" class="details">
+
+        <div class="col">
+            <img width="75px" src="/mediaaa/humidity.png" alt="">
+        </div>
+        <p style="color: rgb(252, 252, 252);" class="humidity">50%</p>
+        <p style="color: rgb(252, 252, 252);">humidity</p>
+       </div>
+        </div>
+        <div  id="h9">
+        <div  class="col">
+            <img   src="/mediaaa/wind.png" alt="">
+        </div>
+        <p  style="color: rgb(252, 252, 252);" class="wind">15 km/h</p>
+        <p style="color: rgb(252, 252, 252);" >wind speed</p>
+       </div>
+    </div>
+        </div>
+    </div>
+
+    <script>
+      const one ="https://api.openweathermap.org/data/2.5/weather?q=";
+    //   const city ="nidadavole";
+      const two = "&appid=b372c7c0a29cf2f1b5af30c39b87c004&units=meteric";
+       const srachBox = document.querySelector(".search input");
+       const srachBtn = document.querySelector(".search button");
+        const weatherIcon = document.querySelector(".weather-icon");
+
+        async function checkweather(city){
+              const response = await fetch(one+city+two);
+            var data = await response.json();
+
+            console.log(data);
+
+            document.querySelector(".city").innerHTML = data.name;
+            document.querySelector(".temp").innerHTML =Math.round(data.main.temp)-273+"°c";
+            document.querySelector(".humidity").innerHTML = data.main.humidity+"%";
+            document.querySelector(".wind").innerHTML = data.wind.speed+"km/h";
+
+            if(data.weather[0].main == "Clouds")
+            {
+weatherIcon.src ="/mediaaa/clouds.png"
+            }
+            else if(data.weather[0].main == "Clear")
+            {
+            weatherIcon.src ="/mediaaa/clear.png"
+            }
+            else if(data.weather[0].main == "Rain")
+            {
+            weatherIcon.src ="/mediaaa/rain.png"
+            }
+            else if(data.weather[0].main == "Drizzle")
+            {
+            weatherIcon.src ="/mediaaa/drizzle.png"
+            }
+            else if(data.weather[0].main == "Mist")
+            {
+            weatherIcon.src ="/mediaaa/mist.png"
+            }
+
+        }
+
+        srachBtn.addEventListener("click",()=>{
+        checkweather(srachBox.value);
+        })
+       
+
+    </script>
+</body>
+</html>
